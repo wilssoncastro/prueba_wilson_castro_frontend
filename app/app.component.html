@@ -1,0 +1,88 @@
+<h1 >
+  CRUD PACIENTES
+</h1>
+
+
+<button (click)="crear()" >Crear nuevo</button>
+
+<div *ngIf="!formActived">
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Tipo documento</th>
+        <th>N° Documento</th>
+        <th>Correo</th>
+        <th>Teléfono</th>
+        <th>Fecha de nacimiento</th>
+        <th>Eliminar</th>
+        <th>Editar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let paciente of pacientes">
+        <td>{{ paciente.nombres }}</td>
+        <td>{{ paciente.apellidos }}</td>
+        <td>{{ paciente.tipo_documento }}</td>
+        <td>{{ paciente.numeroDocumento }}</td>
+        <td>{{ paciente.correo }}</td>
+        <td>{{ paciente.telefono }}</td>
+        <td>{{ paciente.fechaNacimiento | date:'dd/MM/yyyy' }}</td>
+        <td> <span (click)="editar(paciente.id)">Editar</span> </td>
+        <td> <span (click)="eliminar(paciente.id)">Eliminar</span> </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div *ngIf="formActived">
+
+  <form [formGroup]="pacienteForm" >
+    <div>
+      <label >Nombres:</label>
+      <input type="text"  formControlName="Nombres">
+    </div>
+
+    <div>
+      <label>Apellidos:</label>
+      <input type="text"  formControlName="Apellidos">
+    </div>
+    <div>
+      <label >Tipo de documento:</label>
+      <select formControlName="Tipo_documento">
+        <option value="CC">CC</option>
+        <option value="TI">TI</option>
+        <option value="CE">CE</option>
+        <option value="PA">PA</option>
+      </select>
+    </div>
+    <div>
+      <label>Numero Documento:</label>
+      <input type="text"  formControlName="NumeroDocumento">
+    </div>
+    <div>
+      <label>Correo:</label>
+      <input type="text" formControlName="Correo">
+    </div>
+
+    <div>
+      <label >telefono:</label>
+      <input type="text"  formControlName="Telefono">
+    </div>
+
+    <div>
+      <label for="FechaNacimiento">Fecha de Nacimiento:</label>
+      <input type="date" id="FechaNacimiento" formControlName="FechaNacimiento">
+    </div>
+
+    <!-- Otros campos del formulario aquí -->
+
+    <button (click)="save()" >{{isEdit? 'Editar' : 'Guardar'}}</button>
+    <button (click)="cancelar()" >Cancelar</button>
+  </form>
+
+
+</div>
+
